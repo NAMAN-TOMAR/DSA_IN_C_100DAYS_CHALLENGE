@@ -1,17 +1,25 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-void spiral_traversal(int** matrix, int r, int c) {
-    if (r == 0 || c == 0) {
-        return;
+int main() {
+    int r, c;
+    scanf("%d %d", &r, &c);
+    
+    int matrix[r][c];
+    
+    // Read the matrix
+    for (int i = 0; i < r; i++) {
+        for (int j = 0; j < c; j++) {
+            scanf("%d", &matrix[i][j]);
+        }
     }
     
+    // Initialize boundaries
     int top = 0, bottom = r - 1;
     int left = 0, right = c - 1;
-    int first = 1;
+    int first = 1;  // Flag to handle space printing
     
     while (top <= bottom && left <= right) {
-        // Traverse top row from left to right
+        // Traverse right along top row
         for (int col = left; col <= right; col++) {
             if (!first) printf(" ");
             printf("%d", matrix[top][col]);
@@ -19,7 +27,7 @@ void spiral_traversal(int** matrix, int r, int c) {
         }
         top++;
         
-        // Traverse right column from top to bottom
+        // Traverse down along right column
         for (int row = top; row <= bottom; row++) {
             if (!first) printf(" ");
             printf("%d", matrix[row][right]);
@@ -27,55 +35,6 @@ void spiral_traversal(int** matrix, int r, int c) {
         }
         right--;
         
-        // Traverse bottom row from right to left (if there's a row remaining)
+        // Traverse left along bottom row (if row exists)
         if (top <= bottom) {
-            for (int col = right; col >= left; col--) {
-                if (!first) printf(" ");
-                printf("%d", matrix[bottom][col]);
-                first = 0;
-            }
-            bottom--;
-        }
-        
-        // Traverse left column from bottom to top (if there's a column remaining)
-        if (left <= right) {
-            for (int row = bottom; row >= top; row--) {
-                if (!first) printf(" ");
-                printf("%d", matrix[row][left]);
-                first = 0;
-            }
-            left++;
-        }
-    }
-    
-    printf("\n");
-}
-
-int main() {
-    int r, c;
-    scanf("%d %d", &r, &c);
-    
-    // Allocate memory for matrix
-    int** matrix = (int**)malloc(r * sizeof(int*));
-    for (int i = 0; i < r; i++) {
-        matrix[i] = (int*)malloc(c * sizeof(int));
-    }
-    
-    // Read matrix elements
-    for (int i = 0; i < r; i++) {
-        for (int j = 0; j < c; j++) {
-            scanf("%d", &matrix[i][j]);
-        }
-    }
-    
-    // Perform spiral traversal
-    spiral_traversal(matrix, r, c);
-    
-    // Free allocated memory
-    for (int i = 0; i < r; i++) {
-        free(matrix[i]);
-    }
-    free(matrix);
-    
-    return 0;
-}
+            for (int col = right; c
